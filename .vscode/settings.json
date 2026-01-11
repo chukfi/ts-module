@@ -1,0 +1,11 @@
+{
+  "editor.formatOnSave": true,
+  "files.autoSave": "afterDelay",
+  "prettier.enable": true,
+  "prettier.singleQuote": true,
+  // enable prettier for json files
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}

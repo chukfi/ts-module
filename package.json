@@ -1,0 +1,12 @@
+{
+  "name": "chukfi-react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/chukfi/ts-module.git",
+  "author": "DwifteJB <dwifte@outlook.com>",
+  "license": "MIT",
+  "dependencies": {
+    "prettier": "^3.7.4",
+    "typescript": "^5.9.3"
+  }
+}
