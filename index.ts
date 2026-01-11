@@ -31,9 +31,9 @@ class Chukfi {
     this.apiUrl = apiUrl;
 
     this.requests = {
-      collections: new CollectionRequests(this._apiRequest),
+      collections: new CollectionRequests(this._apiRequest.bind(this)),
       auth: new AuthRequests(
-        this._apiRequest,
+        this._apiRequest.bind(this),
         accessToken,
         this.apiUrl,
         () => this.accessToken,
@@ -50,6 +50,8 @@ class Chukfi {
     requiresAuth: boolean = true,
     body?: any,
   ): Promise<T | Error> {
+    console.log("API Request to:", `${this.apiUrl}${endpoint}`);
+    console.log("Token:", this.accessToken);
     if (requiresAuth && !this.accessToken) {
       return Error("No access token provided");
     }

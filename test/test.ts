@@ -1,5 +1,6 @@
 import { describe } from "node:test";
 import Chukfi from "../index";
+import { User } from "../src/types/types";
 
 const chukfi = new Chukfi("http://localhost:3000");
 
@@ -33,4 +34,54 @@ describe("WhoAmI", async () => {
   if (!chukfi.loggedInUser) {
     throw new Error("No logged in user after whoAmI");
   }
+});
+
+describe("GetUserSchemas", async () => {
+  await Login("admin@nativeconsult.io", "chukfi123");
+
+  const schemasOrError =
+    await chukfi.requests.collections.GetTableSchema("users");
+
+  if (schemasOrError instanceof Error) {
+    throw schemasOrError;
+  }
+  console.log("User Schemas:", schemasOrError);
+});
+
+describe("GetAllCollections", async () => {
+  await Login("admin@nativeconsult.io", "chukfi123");
+  const allSchemasOrError =
+    await chukfi.requests.collections.GetAllCollections();
+
+  if (allSchemasOrError instanceof Error) {
+    throw allSchemasOrError;
+  }
+  console.log("All Schemas:", allSchemasOrError);
+});
+
+describe("CreateCollectionEntry", async () => {
+  await Login("admin@nativeconsult.io", "chukfi123");
+  const newEntryOrError =
+    await chukfi.requests.collections.CreateCollectionEntry<User>("users", {
+      Fullname: "Test User",
+      Email: `testuser${Date.now()}@example.com`,
+      Password: "securepassword",
+      Permissions: 1,
+    });
+
+  if (newEntryOrError instanceof Error) {
+    throw newEntryOrError;
+  }
+  console.log("New User Entry:", newEntryOrError);
+});
+
+describe("GetCollectionData", async () => {
+    await Login("admin@nativeconsult.io", "chukfi123");
+
+    const dataOrError = await chukfi.requests.collections.GetCollectionData<User>("users");
+
+    if (dataOrError instanceof Error) {
+      throw dataOrError;
+    }
+    console.log("Users Data:", dataOrError);
 });
