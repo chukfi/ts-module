@@ -37,7 +37,9 @@ class Chukfi {
         accessToken,
         this.apiUrl,
         () => this.accessToken,
+        (token: string) => { this.accessToken = token; },
         () => this.loggedInUser,
+        (user: ApiUser | null) => { this.loggedInUser = user; },
       ),
     };
   }

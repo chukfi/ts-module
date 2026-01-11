@@ -11,26 +11,29 @@ class AuthRequests extends BaseRequests {
     accessToken: string,
     apiUrl: string,
     getAccessToken?: () => string,
+    setAccessToken?: (token: string) => void,
     getLoggedInUser?: () => ApiUser | null,
+    setLoggedInUser?: (user: ApiUser | null) => void,
   ) {
     super(_apiRequest);
     this.accessToken = accessToken;
     this.apiUrl = apiUrl;
 
-    if (getAccessToken) {
+    if (getAccessToken && setAccessToken) {
       Object.defineProperty(this, "accessToken", {
         get: getAccessToken,
+        set: setAccessToken,
       });
     }
 
-    if (getLoggedInUser) {
+    if (getLoggedInUser && setLoggedInUser) {
       Object.defineProperty(this, "loggedInAsUser", {
         get: getLoggedInUser,
+        set: setLoggedInUser,
       });
     }
 
     if (this.accessToken !== "") {
-      // auto-fetch user info if access token is provided
       this.whoAmI();
     }
   }
