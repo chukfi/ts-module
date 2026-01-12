@@ -78,10 +78,25 @@ describe("CreateCollectionEntry", async () => {
 describe("GetCollectionData", async () => {
     await Login("admin@nativeconsult.io", "chukfi123");
 
-    const dataOrError = await chukfi.requests.collections.GetCollectionData<User>("users");
+    const dataOrError = await chukfi.requests.collections.GetData<User>("users");
 
     if (dataOrError instanceof Error) {
       throw dataOrError;
     }
     console.log("Users Data:", dataOrError);
+});
+
+describe("EditCollectionEntry", async () => {
+  await Login("admin@nativeconsult.io", "chukfi123");
+
+  const editEntryOrError =
+    await chukfi.requests.collections.UpdateCollectionEntry<User>("users", "bcee69d6-51e0-4bc7-b305-143cc8407b04", {
+      Fullname: "Updated Test User",
+    });
+
+  if (editEntryOrError instanceof Error) {
+    throw editEntryOrError;
+  }
+  console.log("Edited User Entry:", editEntryOrError);
+
 });

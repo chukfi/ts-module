@@ -62,7 +62,7 @@ class Chukfi {
 
     try {
       let response = await fetch(`${this.apiUrl}${endpoint}`, {
-        ...(requiresAuth
+        ...(this.accessToken
           ? {
               headers: {
                 Authorization: `Bearer ${this.accessToken}`,
